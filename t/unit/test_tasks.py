@@ -78,9 +78,13 @@ class test_dispatch_request:
             user=self.user,
         )
         self.req = Request(
-            self.subscriber.event, 'a', 501, self.subscriber, timeout=3.03)
+            self.subscriber.event, 'a', 501, self.subscriber,
+            timeout=3.03, headers={'foo': 'bar'}
+        )
         self.req2 = Request(
-            self.subscriber2.event, 'a', 501, self.subscriber2, timeout=3.03)
+            self.subscriber2.event, 'a', 501, self.subscriber2,
+            timeout=3.03, headers={'foo': 'bar'}
+        )
 
     @pytest.fixture()
     def app_or_default(self, patching):
@@ -99,6 +103,7 @@ class test_dispatch_request:
             retry_max=self.req.retry_max, retry_delay=self.req.retry_delay,
             recipient_validators=DEFAULT_RECIPIENT_VALIDATORS,
             allow_keepalive=True,
+            headers={'foo': 'bar'}
         )
         _Request().dispatch.assert_called_once_with(
             session=self.session, propagate=_Request().retry)
@@ -117,6 +122,7 @@ class test_dispatch_request:
             retry_max=self.req.retry_max, retry_delay=self.req.retry_delay,
             recipient_validators=DEFAULT_RECIPIENT_VALIDATORS,
             allow_keepalive=False,
+            headers={'foo': 'bar'}
         )
         _Request().dispatch.assert_called_once_with(
             session=self.session, propagate=_Request().retry)
@@ -134,6 +140,7 @@ class test_dispatch_request:
             retry_max=self.req2.retry_max, retry_delay=self.req2.retry_delay,
             recipient_validators=DEFAULT_RECIPIENT_VALIDATORS,
             allow_keepalive=True,
+            headers={'foo': 'bar'}
         )
         _Request().dispatch.assert_called_once_with(
             session=self.session, propagate=_Request().retry)

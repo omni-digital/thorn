@@ -176,6 +176,7 @@ class test_Request:
             'retry_max': self.req.retry_max,
             'recipient_validators': DEFAULT_RECIPIENT_VALIDATORS,
             'allow_keepalive': self.req.allow_keepalive,
+            'headers': self.req._headers
         }
 
     def test_urlident(self):

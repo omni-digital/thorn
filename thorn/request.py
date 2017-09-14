@@ -205,6 +205,7 @@ class Request(ThenableProxy):
                 self._recipient_validators,
             ),
             'allow_keepalive': self.allow_keepalive,
+            'headers': self._headers
         }
 
     def annotate_headers(self, extra_headers):
